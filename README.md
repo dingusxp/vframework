@@ -62,27 +62,49 @@ try {
 // 可以使用 V 的各种方法，也可以直接使用 类库包 里的各种类。
 ```
 
-**嗯，这明显不够用是吧~~~ 那继续了解：**
+**嗯，这明显不够用是吧~~~ 至少实现一个标准的 MVC 模式吧：（嗯，如下）**
 
 > #### Component
-> 定义了组件的组成
+> 定义了组件的组成：
+> 一个组件需要继承 Component；同时实现一个 [ComponentName]_Abstract 名的基类（用来定义该组件的公用方法），以及一个 [ComponentName]_Exception 的异常类。
 
 **主要方法：**
 ```php
-factory()
+protected static function _factory($componentName, $engine, $option = array())  // 工厂，实例化一个组件对象
 
 ```
 
 > #### Bootstrap
-> 引导器；规定代码执行流程
+> 引导器；规定后续代码的执行流程
+> 内置实现：Bootstrap_Web： 走标准web流程： 路由分发 -> 执行对应action
 
-**接口**
+**Bootstrap_Abstract： 接口**
 ```php
-run()
+abstract public function run(); // 执行引导器规范的流程
+
+```
+
+> #### Router
+> 路由；配置规则，将请求（通常根据 url）对应到需要执行的操作
+> 内置实现：Router_Simple： 根据 r=controller/action 规则映射到对应 Controller 的方法；
+> 内置实现：Router_Regexp： 用正则表达式规则做映射，action 可以是 Router 支持的几种：action、view、redirect；
+
+**Router_Abstract： 接口**
+```php
+abstract public function parse(); // 解析出当前请求需要执行的操作
 
 ```
 
 
+> #### Controller
+> 控制器：处理用户输入（Web_Request），调用对应方法进行逻辑处理，并输出反馈（Web_Response）
+
+**Controller_Abstract： 接口**
+```php
+public function  __construct() // 实例化组件作为属性： Web_Request， Web_Session， Web_Response， View
+public function doAction($action) // 调用本实例的 action[$action] 方法。并在执行前后分别触发： _beforeAction 和 _afterAction 方法
+
+```
 
 
 

@@ -121,7 +121,29 @@ public function doAction($action) // 调用本实例的 action[$action] 方法�
 > #### Web_Request
 > 请求输入信息获取，包括 GET、POST、FILE、COOKIE、SERVER 等
 
+
 **Web_Request： 接口**
+```php
+public static function getInstance(); // 获取唯一实例；初始化时会取消魔术引号效果（即使 php.ini 配置了）；配置中可以开启注入检测
+public function get($name, $default = '')  // 获取一个 GET 值，可以指定 !isset() 时的默认值
+public function post($name, $default = '') // 获取一个 POST 值，可以指定 !isset() 时的默认值
+public function server($name, $default = '') // 获取一个 $_SERVER 值，可以指定 !isset() 时的默认值
+public function file($name, $key = '')  // 获取一个 $_FILE 值
+public function cookie($name, $default = '') // 获取一个 COOKIE 值
+public function referer()  // 获取链接来源
+public function getClientIp()  // 获取客户端IP
+public function getBrowser()   // 获取客户端浏览器
+public function getOS()  // 获取客户端操作系统
+public function isPost()  // 判断是否POST请求
+public function isAjax($allowInajax = false)  // 判断是否 ajax 请求
+public function isSpider()  // 判断是否蜘蛛
+public function url()  // 获取当前访问链接
+public function checkIfNotModified($eTag)  // 检测etag值是否有变化
+public function checkReferer()  // 判断请求来源和当前链接是否同域
+
+```
+
+**Web_Response： 接口**
 ```php
 
 

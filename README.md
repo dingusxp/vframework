@@ -63,7 +63,7 @@ try {
 
 ```
 
-**嗯，这明显不够用是吧~~~ 至少实现一个标准的 MVC 模式吧：（嗯，如下）**
+**这明显不够用是吧~~~ 至少实现一个标准的 MVC 模式吧：（嗯，继续）**
 
 > #### Component
 > 定义了组件的组成：
@@ -85,6 +85,15 @@ abstract public function run(); // 执行引导器规范的流程
 
 ```
 
+**默认MVC模式**
+```bash
+Router -> Controller::actionActionName <-> Model <-> DAO
+                                       <-> View
+       -> render view
+       -> url redirect
+       
+```
+
 > #### Router
 > 路由；配置规则，将请求（通常根据 url）对应到需要执行的操作
 > 内置实现：Router_Simple： 根据 r=controller/action 规则映射到对应 Controller 的方法；
@@ -98,7 +107,7 @@ abstract public function parse(); // 解析出当前请求需要执行的操作
 
 
 > #### Controller
-> 控制器：处理用户输入（Web_Request），调用对应方法进行逻辑处理，并输出反馈（Web_Response）
+> 控制器：处理请求输入（Web_Request），调用对应方法进行逻辑处理，并输出反馈（Web_Response）
 
 **Controller_Abstract： 接口**
 ```php
@@ -106,6 +115,20 @@ public function  __construct() // 实例化组件作为属性： Web_Request， 
 public function doAction($action) // 调用本实例的 action[$action] 方法。并在执行前后分别触发： _beforeAction 和 _afterAction 方法
 
 ```
+
+
+
+> #### Web_Request
+> 请求输入信息获取，包括 GET、POST、FILE、COOKIE、SERVER 等
+
+**Web_Request： 接口**
+```php
+
+
+```
+
+
+
 
 
 

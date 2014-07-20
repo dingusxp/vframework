@@ -124,7 +124,7 @@ public function doAction($action) // 调用本实例的 action[$action] 方法�
 
 **Web_Request： 接口**
 ```php
-public static function getInstance(); // 获取唯一实例；初始化时会取消魔术引号效果（即使 php.ini 配置了）；配置中可以开启注入检测
+public static function getInstance() // 获取唯一实例；初始化时会取消魔术引号效果（即使 php.ini 配置了）；配置中可以开启注入检测
 public function get($name, $default = '')  // 获取一个 GET 值，可以指定 !isset() 时的默认值
 public function post($name, $default = '') // 获取一个 POST 值，可以指定 !isset() 时的默认值
 public function server($name, $default = '') // 获取一个 $_SERVER 值，可以指定 !isset() 时的默认值
@@ -145,11 +145,134 @@ public function checkReferer()  // 判断请求来源和当前链接是否同域
 
 **Web_Response： 接口**
 ```php
+public static function getInstance() // 获取唯一实例
+public function setOutputObContent($isOutput)  // 设置是否输出缓冲区内容；如果否，则只会输出设置在 body 变量里的内容
+public function setOuputGZip($isEnableGzip)  // 设置是否对输出内容做 gzip 压缩
+public function setRawHeader($content, $replace = true) // 设置输出头信息（原始格式）
+public function setHeader($type, $content, $replace = true) // 设置输出头信息
+public function clearHeader($type = '') // 清除全部头信息设置
+public function setResponseCode($code)  // 设置 http 头返回码
+public function setBody($content)  // 设置 body 内容
+public function appendBody($content)  // 追加内容
+public function registerRewriteCallback($callback)  // 注册一个 rewrite 函数，在输出 ouput 时重写内容
+public function removeRewriteCallback($callback = '')  // 移除一个注册的 rewrite 函数
+public function cancelOutput() // 关闭 Response 对象默认输出
+public function output($ob = true)  // 输出
+public function setNoCache()  // 设置头信息为 不缓存
+public function redirect($url, $isPermanent = false)  // 重定向到指定 url
+public function returnNotModifed()  // 输出时仅返回 304 状态码
+public function setEtag($eTag) // 设置etag，以便比较内容是否有变化
+public function setCookie($key, $value, $expired = 0, $path = null, $domain = null)  // 设置 cookie
+public function clearCookie($keys = '') // 清除指定或全部 cookie
+
+```
+
+> #### View
+> 模版引擎，根据变量赋值来解析模板
+> 内置 View_PHP，以 php 语法作为模板语言进行解析
+
+**View_Abstract： 接口**
+```php
+public function assign($key, $value = null) // 设置一个模板变量
+public function render($tpl, $target = View::RENDER_WEB_RESPONSE) // 解析指定模板并输出内容到 target（直接返回内容/追加内容到 Response 实例的 body 里）
+
+```
+
+
+> #### Model
+> 业务处理模块。根据 controller 的输入，调用 DAO/其它 Model 获取数据进行业务逻辑处理或执行操作。
+
+**Model：组件**
+```php
+public static function getInstance($engine)  // 获取指定名称 Model 的一个唯一实例
+public static function getDAO($engine)  // 获取指定名称 DAO 的一个唯一实例
+
+```
+
+**Model_Abstract： 接口**
+```php
+// 空
+
+```
+
+> #### DAO
+> 各种数据源的访问控制，如 Mysql
+> 内置 DAO_Mysql 组件；每个表对应一个实例的方式，简单配置即可方便的调用
+
+
+
+**其它辅助类组件**
+
+> #### Cache
+> 缓存操作
+> 内置 Cache_File，Cache_APC，Cache_Memcache 三种缓存操作方式
+
+**Cache_Abstrct： 接口**
+```php
+abstract public function save($id, $data, $expired = null);  // 设置一个 id 对应的数据
+abstract public function load($id);  // 获取指定 id 对应的数据
+abstract public function remove($id);  // 移除指定 id 
+abstract public function clean(); // 移除所有缓存
+
+```
+
+
+> #### Cryptor
+> 文本加密解密
+> 内置 Cryptor_Xor，以 异或 方式进行加密解密
+
+**Cryptor_Abstract： 接口**
+```php
+abstract public function encrypt($string, $skey = ''); // 使用 skey 加密指定字符串
+abstract public function decrypt($string, $skey = '');  // 使用 skey 解密指定字符串
+
+```
+
+> #### DB
+> 数据库操作
+> 内置 DB_Pdo，以 PDO 方式操作数据库
+
+**DB_Abstract： 接口**
+```php
+
+
+```
+
+> #### Image
+> 图像处理
+> 内置 Image_GD，调用 GD 库进行处理
+
+**Image_Abstract： 接口**
+```php
+
+
+```
+
+> #### HTML
+> HTML 处理相关，如 过滤，输出 widget 等
+
+**HTML**
+```php
 
 
 ```
 
 
+
+> #### Storage
+> 文件存储操作，
+> 内置 Storage_Local，进行本地文件操作
+> 内置 Storage_Sae，可以操作 SAE 上的 storage 服务
+
+**Storage_Abstract：接口**
+```php
+
+
+```
+
+> #### Validator
+> 变量验证，通常用于用户输入。
+> 内置一些常见规则，如 url，email 等。可以通过配置自己添加其它规则
 
 
 

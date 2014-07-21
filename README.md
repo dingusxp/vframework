@@ -75,7 +75,7 @@ protected static function _factory($componentName, $engine, $option = array())  
 
 ```
 
-> #### Bootstrap
+> #### Bootstrap 【组件】
 > 引导器；规定后续代码的执行流程
 > 内置实现：Bootstrap_Web： 走标准web流程： 路由分发 -> 执行对应action
 
@@ -94,7 +94,7 @@ Router -> Controller::actionActionName <-> Model <-> DAO
        
 ```
 
-> #### Router
+> #### Router 【组件】
 > 路由；配置规则，将请求（通常根据 url）对应到需要执行的操作
 > 内置实现：Router_Simple： 根据 r=controller/action 规则映射到对应 Controller 的方法；
 > 内置实现：Router_Regexp： 用正则表达式规则做映射，action 可以是 Router 支持的几种：action、view、redirect；
@@ -112,10 +112,9 @@ abstract public function parse(); // 解析出当前请求需要执行的操作
 **Controller_Abstract： 接口**
 ```php
 public function  __construct() // 实例化组件作为属性： Web_Request， Web_Session， Web_Response， View
-public function doAction($action) // 调用本实例的 action[$action] 方法。并在执行前后分别触发： _beforeAction 和 _afterAction 方法
+public function doAction($action) // 执行流程：_beforeAction -> $actionName() -> _afterAction -> 输出 Web_Response 内容
 
 ```
-
 
 
 > #### Web_Request
@@ -167,7 +166,7 @@ public function clearCookie($keys = '') // 清除指定或全部 cookie
 
 ```
 
-> #### View
+> #### View 【组件】
 > 模版引擎，根据变量赋值来解析模板
 > 内置 View_PHP，以 php 语法作为模板语言进行解析
 
@@ -203,7 +202,7 @@ public static function getDAO($engine)  // 获取指定名称 DAO 的一个唯�
 
 **其它辅助类组件**
 
-> #### Cache
+> #### Cache 【组件】
 > 缓存操作
 > 内置 Cache_File，Cache_APC，Cache_Memcache 三种缓存操作方式
 
@@ -217,7 +216,7 @@ abstract public function clean(); // 移除所有缓存
 ```
 
 
-> #### Cryptor
+> #### Cryptor 【组件】
 > 文本加密解密
 > 内置 Cryptor_Xor，以 异或 方式进行加密解密
 
@@ -228,23 +227,43 @@ abstract public function decrypt($string, $skey = '');  // 使用 skey 解密指
 
 ```
 
-> #### DB
+> #### DB 【组件】
 > 数据库操作
 > 内置 DB_Pdo，以 PDO 方式操作数据库
 
 **DB_Abstract： 接口**
 ```php
-
+abstract function connect(array $option = array()); // 连接到数据库
+abstract public function begin(); // 开启事物
+abstract public function commit(); // 提交事务
+abstract public function rollBack(); // 回滚事务
+abstract public function fetchRow($query, $params = array()); // 取得查询记录的第一行
+abstract public function fetchAll($query, $params = array()); // 取得所有查询的记录
+abstract public function fetchOne($query, $params = array()); // 获取记录的第一行第一列
+abstract public function execute($query, $params = array()); // 执行sql 语句，返回操作影响的行数
+abstract public function lastInsertId(); // 获取最后插入记录的id
+abstract public function close(); // 关闭数据库连接
+public function escape($value) // 过滤变量中 sql 非法字符
 
 ```
 
-> #### Image
+> #### Image 【组件】
 > 图像处理
 > 内置 Image_GD，调用 GD 库进行处理
 
 **Image_Abstract： 接口**
 ```php
-
+abstract public function create($width, $height, $bgColor = '#FFFFFF', $type = Image::TYPE_JPG); // 创建一个空白图像
+abstract public function createCaptcha($code, $width = 200, $height = 60); // 创建一个验证码图像
+abstract public function loadFromFile($file); // 载入图片
+public function getWidth()  // 获取当前图片宽度
+public function getHeight() // 获取当前图片高度
+public function getType()   // 获取当前图片类型
+abstract public function resize($newWidth, $newHeight, $resizeMode = Image::RESIZE_STRETCH); // 调整大小（缩略图）
+abstract public function addText($text, $px, $py, $color = '#FFFFFF', $fontSize = 5); // 图片上追加文本内容（文字水印）
+abstract public function merge(Image_Abstract $im, $px, $py, $w, $h, $opacity = 100);  // 图片合并（图片水印）
+abstract public function output($target = Image::OUTPUT_WEB_RESPONSE, $option = array()); // 输出编辑后的图片
+abstract public function isSupport($type);  // 检查当前环境是否支持指定类型图像处理
 
 ```
 
@@ -253,20 +272,28 @@ abstract public function decrypt($string, $skey = '');  // 使用 skey 解密指
 
 **HTML**
 ```php
-
+public static function clean($html, $allowTags = '') // 移除文本中 html 标签
+public static function escape($html, $convertAllEntities = false)  // 文本中的 html 便签转义
+public static function widget($engine, $option = array())  // 输出一个 widget 生成的内容
 
 ```
 
 
 
-> #### Storage
+> #### Storage 【组件】
 > 文件存储操作，
 > 内置 Storage_Local，进行本地文件操作
 > 内置 Storage_Sae，可以操作 SAE 上的 storage 服务
 
 **Storage_Abstract：接口**
 ```php
-
+abstract public function write($path, $content); // 写入内容到指定路径（写文件）
+abstract public function upload($path, $localPath);  // 上传本地文件到指定路径
+abstract public function read($path);  // 读取指定路径的文件内容
+abstract public function remove($path);  // 删除指定路径文件
+abstract public function rmdir($path);  // 删除指定目录
+abstract public function isExist($path);  // 判断文件是否存在
+abstract public function getUrl($path);  // 获取文件对应的可访问 url
 
 ```
 

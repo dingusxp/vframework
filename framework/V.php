@@ -33,10 +33,10 @@ class V_Exception extends Exception {
      * 异常类型
      */
     protected $_type = null;
-    
+
     /**
      * 继承层级
-     * @var type 
+     * @var type
      */
     protected $_level = 0;
 
@@ -44,12 +44,12 @@ class V_Exception extends Exception {
      * 由下级未做处理直接传递过来的异常
      */
     const E_PASSON_EXCEPTION = 987654321;
-    
+
     /**
      * 通用异常码： 参数错误
      */
     const E_PARAM_ERROR = 2;
-    
+
     /**
      * 通用异常码： 逻辑错误
      */
@@ -272,13 +272,13 @@ class V {
             }
         }
     }
-    
+
     /**
      * 使用编译好的配置初始化
      * @param type $config
      */
     public static function compileInit($config) {
-        
+
         self::$_config = $config;
         self::$_compileMode = true;
         self::init();
@@ -295,86 +295,86 @@ class V {
 
         // Library
         static $libraries = array (
-            'Arr' => 'Arr',
-            'Bootstrap' => 'Bootstrap',
-            'Bootstrap_Abstract' => 'Bootstrap/Abstract',
-            'Bootstrap_Exception' => 'Bootstrap/Exception',
-            'Bootstrap_Runtime' => 'Bootstrap/Runtime',
-            'Bootstrap_Web' => 'Bootstrap/Web',
-            'Cache' => 'Cache',
-            'Cache_Abstract' => 'Cache/Abstract',
-            'Cache_Apc' => 'Cache/Apc',
-            'Cache_Exception' => 'Cache/Exception',
-            'Cache_File' => 'Cache/File',
-            'Cache_Memcache' => 'Cache/Memcache',
-            'Component' => 'Component',
-            'Controller' => 'Controller',
-            'Controller_Abstract' => 'Controller/Abstract',
-            'Controller_Exception' => 'Controller/Exception',
-            'Cryptor' => 'Cryptor',
-            'Cryptor_Abstract' => 'Cryptor/Abstract',
-            'Cryptor_Exception' => 'Cryptor/Exception',
-            'Cryptor_Xor' => 'Cryptor/Xor',
-            'DAO' => 'DAO',
-            'DAO_Abstract' => 'DAO/Abstract',
-            'DAO_Exception' => 'DAO/Exception',
-            'DAO_Mysql' => 'DAO/Mysql',
-            'DB' => 'DB',
-            'DB_Abstract' => 'DB/Abstract',
-            'DB_Exception' => 'DB/Exception',
-            'DB_Mysql' => 'DB/Mysql',
-            'DB_Pdo' => 'DB/Pdo',
-            'Debugger' => 'Debugger',
-            'FS' => 'FS',
-            'FileStore' => 'FileStore',
-            'HTML' => 'HTML',
-            'HTML_Exception' => 'HTML/Exception',
-            'HTML_Widget' => 'HTML/Widget',
-            'HTML_Widget_Abstract' => 'HTML/Widget/Abstract',
-            'HTML_Widget_Exception' => 'HTML/Widget/Exception',
-            'HTML_Widget_Pager' => 'HTML/Widget/Pager',
-            'Image' => 'Image',
-            'Image_Abstract' => 'Image/Abstract',
-            'Image_Exception' => 'Image/Exception',
-            'Image_GD' => 'Image/GD',
-            'Logger' => 'Logger',
-            'Logger_Abstract' => 'Logger/Abstract',
-            'Logger_Exception' => 'Logger/Exception',
-            'Logger_File' => 'Logger/File',
-            'Model' => 'Model',
-            'Model_Abstract' => 'Model/Abstract',
-            'Model_Exception' => 'Model/Exception',
-            'PicStore' => 'PicStore',
-            'Router' => 'Router',
-            'Router_Abstract' => 'Router/Abstract',
-            'Router_Exception' => 'Router/Exception',
-            'Router_Regexp' => 'Router/Regexp',
-            'Router_Simple' => 'Router/Simple',
-            'Service' => 'Service',
-            'Service_Abstract' => 'Service/Abstract',
-            'Service_Exception' => 'Service/Exception',
-            'Storage' => 'Storage',
-            'Storage_Abstract' => 'Storage/Abstract',
-            'Storage_Exception' => 'Storage/Exception',
-            'Storage_Local' => 'Storage/Local',
-            'Storage_Sae' => 'Storage/Sae',
-            'Str' => 'Str',
-            'Validator' => 'Validator',
-            'Validator_Exception' => 'Validator/Exception',
-            'Validator_Rule' => 'Validator/Rule',
-            'Validator_Rule_Abstract' => 'Validator/Rule/Abstract',
-            'Validator_Rule_Callback' => 'Validator/Rule/Callback',
-            'Validator_Rule_Regexp' => 'Validator/Rule/Regexp',
-            'View' => 'View',
-            'View_Abstract' => 'View/Abstract',
-            'View_Exception' => 'View/Exception',
-            'View_PHP' => 'View/PHP',
-            'Web_Cookie' => 'Web/Cookie',
-            'Web_Exception' => 'Web/Exception',
-            'Web_Request' => 'Web/Request',
-            'Web_Response' => 'Web/Response',
-            'Web_Session' => 'Web/Session',
-          );
+		  'Arr' => 'Arr',
+		  'Bootstrap' => 'Bootstrap',
+		  'Bootstrap_Abstract' => 'Bootstrap/Abstract',
+		  'Bootstrap_Exception' => 'Bootstrap/Exception',
+		  'Bootstrap_Runtime' => 'Bootstrap/Runtime',
+		  'Bootstrap_Web' => 'Bootstrap/Web',
+		  'Cache' => 'Cache',
+		  'Cache_Abstract' => 'Cache/Abstract',
+		  'Cache_Apc' => 'Cache/Apc',
+		  'Cache_Exception' => 'Cache/Exception',
+		  'Cache_File' => 'Cache/File',
+		  'Cache_Memcache' => 'Cache/Memcache',
+		  'Component' => 'Component',
+		  'Component_Abstract' => 'Component/Abstract',
+		  'Component_Exception' => 'Component/Exception',
+		  'Controller' => 'Controller',
+		  'Controller_Abstract' => 'Controller/Abstract',
+		  'Controller_Exception' => 'Controller/Exception',
+		  'Cryptor' => 'Cryptor',
+		  'Cryptor_Abstract' => 'Cryptor/Abstract',
+		  'Cryptor_Exception' => 'Cryptor/Exception',
+		  'Cryptor_Xor' => 'Cryptor/Xor',
+		  'DAO' => 'DAO',
+		  'DAO_Abstract' => 'DAO/Abstract',
+		  'DAO_Exception' => 'DAO/Exception',
+		  'DAO_Mysql' => 'DAO/Mysql',
+		  'DB' => 'DB',
+		  'DB_Abstract' => 'DB/Abstract',
+		  'DB_Exception' => 'DB/Exception',
+		  'DB_Mysql' => 'DB/Mysql',
+		  'DB_Pdo' => 'DB/Pdo',
+		  'Debugger' => 'Debugger',
+		  'FS' => 'FS',
+		  'FileStore' => 'FileStore',
+		  'HTML' => 'HTML',
+		  'HTML_Exception' => 'HTML/Exception',
+		  'HTML_Widget' => 'HTML/Widget',
+		  'HTML_Widget_Abstract' => 'HTML/Widget/Abstract',
+		  'HTML_Widget_Exception' => 'HTML/Widget/Exception',
+		  'HTML_Widget_Pager' => 'HTML/Widget/Pager',
+		  'Image' => 'Image',
+		  'Image_Abstract' => 'Image/Abstract',
+		  'Image_Exception' => 'Image/Exception',
+		  'Image_GD' => 'Image/GD',
+		  'Logger' => 'Logger',
+		  'Logger_Abstract' => 'Logger/Abstract',
+		  'Logger_Exception' => 'Logger/Exception',
+		  'Logger_File' => 'Logger/File',
+		  'Model' => 'Model',
+		  'Model_Abstract' => 'Model/Abstract',
+		  'Model_Exception' => 'Model/Exception',
+		  'PicStore' => 'PicStore',
+		  'Router' => 'Router',
+		  'Router_Abstract' => 'Router/Abstract',
+		  'Router_Exception' => 'Router/Exception',
+		  'Router_Regexp' => 'Router/Regexp',
+		  'Router_Simple' => 'Router/Simple',
+		  'Service' => 'Service',
+		  'Storage' => 'Storage',
+		  'Storage_Abstract' => 'Storage/Abstract',
+		  'Storage_Exception' => 'Storage/Exception',
+		  'Storage_Local' => 'Storage/Local',
+		  'Storage_Sae' => 'Storage/Sae',
+		  'Str' => 'Str',
+		  'Validator' => 'Validator',
+		  'Validator_Exception' => 'Validator/Exception',
+		  'Validator_Rule' => 'Validator/Rule',
+		  'Validator_Rule_Abstract' => 'Validator/Rule/Abstract',
+		  'Validator_Rule_Callback' => 'Validator/Rule/Callback',
+		  'Validator_Rule_Regexp' => 'Validator/Rule/Regexp',
+		  'View' => 'View',
+		  'View_Abstract' => 'View/Abstract',
+		  'View_Exception' => 'View/Exception',
+		  'View_PHP' => 'View/PHP',
+		  'Web_Cookie' => 'Web/Cookie',
+		  'Web_Exception' => 'Web/Exception',
+		  'Web_Request' => 'Web/Request',
+		  'Web_Response' => 'Web/Response',
+		  'Web_Session' => 'Web/Session',
+		);
         if (isset($libraries[$class])) {
             return self::import($libraries[$class], 'library');
         }
@@ -637,7 +637,7 @@ class V {
             $param = self::config('logger');
             self::$_logger = Logger::factory($param['engine'], $param['option']);
         }
-        
+
         self::$_logger->log($type, $message);
     }
 

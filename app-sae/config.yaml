@@ -1,0 +1,8 @@
+---
+name: app-sae
+version: 1
+handle:
+- hostaccess: if(path ~ "/cron/") allow "10.0.0.0/8"
+- hostaccess: if(path ~ "/(framework|protected)/") deny "all"
+- rewrite: if(!is_file() && !is_dir()) goto "/index.php?%{QUERY_STRING}"
+---

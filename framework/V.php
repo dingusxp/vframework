@@ -265,7 +265,7 @@ class V {
                 }
             }
         }
-        
+
         Timer::getInstance()->log('framework inited ...');
     }
 
@@ -355,6 +355,7 @@ class V {
 		  'Storage_Local' => 'Storage/Local',
 		  'Storage_Sae' => 'Storage/Sae',
 		  'Str' => 'Str',
+		  'Timer' => 'Timer',
 		  'Validator' => 'Validator',
 		  'Validator_Exception' => 'Validator/Exception',
 		  'Validator_Rule' => 'Validator/Rule',

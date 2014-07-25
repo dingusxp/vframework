@@ -12,7 +12,7 @@ class Controller_Index extends Controller_Base {
      */
     public function actionIndex() {
 
-        V::debug('timeline', 'action in ~~');
+        Timer::getInstance()->log('action in~~');
 
         $tplData = array(
             'title' => 'vframework app-demo - index',

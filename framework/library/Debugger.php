@@ -1,20 +1,14 @@
 <?php
 
-
 /**
  * 调试器
  */
 class Debugger {
-
+    
     /**
-     * 时间线输出模式：网页代码
+     * 格式化输出的字符串最大长度
      */
-    const TIMELINE_HTML = 1;
-
-    /**
-     * 时间线输出模式：文本
-     */
-    const TIMELINE_PLAIN = 2;
+    const FORMAT_STRING_MAX_LENGTH = 240;
 
     /**
      * 输出变量模式：var_export 函数打印
@@ -32,77 +26,10 @@ class Debugger {
     const OUTPUT_VAR_DUMP = 3;
 
     /**
-     * Debugger 实例
-     * @var <type>
-     */
-    private static $_instance = null;
-
-    /**
-     * 时间线记录
-     * @var <type>
-     */
-    private $_timelines = array();
-
-    /**
-     * 获取实例
-     * @return <type>
-     */
-    public static function getInstance() {
-
-        if (null === self::$_instance) {
-            self::$_instance = new self();
-        }
-
-        return self::$_instance;
-    }
-
-    /**
-     * 构造函数
-     */
-    public function  __construct() {
-
-    }
-
-    /**
-     * 添加时间记录
-     * @param <type> $message
-     */
-    public function timeline($message) {
-
-        $this->_timelines[] = array(
-            'message' => $message,
-            'time' => V::runtime(),
-        );
-    }
-
-    /**
-     * 输出时间线信息
-     * @param <type> $mode
-     */
-    public function showTimeline($mode = self::TIMELINE_HTML, $param = array()) {
-
-        switch ($mode) {
-            case self::TIMELINE_HTML:
-
-                // 使用内置模板配置
-                $view = View::factory(V::config('v.view'));
-                $view->assign('param', (array)$param);
-                $view->assign('timelines', $this->_timelines);
-                echo $view->render('timeline', View::RENDER_NONE);
-                break;
-            default:
-                echo PHP_EOL, 'Timeline:', PHP_EOL;
-                foreach ($this->_timelines as $timeline) {
-                    echo $timeline['time'], "ms\t", $timeline['message'], PHP_EOL;
-                }
-        }
-    }
-
-    /**
      * 输出变量
      * @param <type> $var
      */
-    public function output($var, $terminate = false, $mode = self::OUTPUT_VAR_EXPORT) {
+    public static function output($var, $terminate = false, $mode = self::OUTPUT_PRINT_R) {
 
         // 输出
         switch ($mode) {
@@ -123,4 +50,60 @@ class Debugger {
         }
     }
 
+    /**
+     * 获取当前位置的调用堆栈信息
+     */
+    public static function debugTrace() {
+
+        $output = '';
+        $backtrace = debug_backtrace();
+        foreach ($backtrace as $bt) {
+            $args = '';
+            foreach ($bt['args'] as $a) {
+                if (!empty($args)) {
+                    $args .= ', ';
+                }
+                $args .= self::_formatVar($a);
+            }
+            $output .= "{$bt['file']} #{$bt['line']}: {$bt['class']}{$bt['type']}{$bt['function']}($args)<br />\n";
+        }
+        return $output;
+    }
+    
+    /**
+     * 格式化一个变量
+     * @param type $var
+     */
+    private static function _formatVar($var) {
+        
+        $var2string = '';
+        switch (gettype($var)) {
+            case 'integer':
+            case 'double':
+                $var2string = $var;
+                break;
+            case 'string':
+                $var = substr($var, 0, self::FORMAT_STRING_MAX_LENGTH) . ((strlen($var) > self::FORMAT_STRING_MAX_LENGTH) ? '...' : '');
+                $var2string = "\"$var\"";
+                break;
+            case 'array':
+                $var2string = 'Array(' . count($var) . ')';
+                break;
+            case 'object':
+                $var2string = 'Object(' . get_class($var) . ')';
+                break;
+            case 'resource':
+                $var2string = 'Resource(' . strstr($var, '#') . ')';
+                break;
+            case 'boolean':
+                $var2string = $var ? 'True' : 'False';
+                break;
+            case 'NULL':
+                $var2string = 'Null';
+                break;
+            default:
+                $var2string = 'Unknown';
+        }
+        return $var2string;
+    }
 }

@@ -35,7 +35,7 @@
     <?php if (defined('V_DEBUG') && V_DEBUG) { ?>
     <div class="wrapper">
         <div class="row">
-            <?php V::debug('showtimeline');?>
+            <?php Timer::getInstance()->output();?>
         </div>
     </div>
     <?php } ?>

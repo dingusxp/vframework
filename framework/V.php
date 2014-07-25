@@ -127,12 +127,6 @@ class V {
     private static $_logger = null;
 
     /**
-     * $_debugger
-     * @var Debugger 调试运行耗时；打印信息等
-     */
-    private static $_debugger = null;
-
-    /**
      * $_inited
      * @var boolean 是否已经初始化过了
      */
@@ -271,6 +265,8 @@ class V {
                 }
             }
         }
+        
+        Timer::getInstance()->log('framework inited ...');
     }
 
     /**
@@ -654,16 +650,8 @@ class V {
             return;
         }
 
-        if (!self::$_debugger) {
-            self::$_debugger = Debugger::getInstance();
-        }
-
         $params = func_get_args();
-        $action = array_shift($params);
-
-        if (self::$_debugger && method_exists(self::$_debugger, $action)) {
-            call_user_func_array(array(self::$_debugger, $action), $params);
-        }
+        call_user_func_array(array('Debugger', 'output'), $params);
     }
 }
 

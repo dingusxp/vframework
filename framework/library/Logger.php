@@ -11,11 +11,17 @@ class Logger extends Component {
     // 日志级别： 警告
     const LEVEL_WARNING = 2;
     
+    // 日志级别： 注意
+    const LEVEL_NOTICE = 4;
+    
     // 日志级别： 调试
-    const LEVEL_DEBUG = 4;
+    const LEVEL_DEBUG = 8;
     
     // 日志级别： 信息
-    const LEVEL_INFO = 8;
+    const LEVEL_INFO = 16;
+    
+    // 日志级别： 其它（保留）
+    const LEVEL_OTHER = 32;
     
     // 日志参数
     private static $_logParam = array();
@@ -30,8 +36,10 @@ class Logger extends Component {
     private static $_levelNames = array(
         self::LEVEL_ERROR => 'ERROR',
         self::LEVEL_WARNING => 'WARNING',
+        self::LEVEL_NOTICE => 'NOTICE',
         self::LEVEL_DEBUG => 'DEBUG',
         self::LEVEL_INFO => 'INFO',
+        self::LEVEL_OTHER => 'OTHER',
     );
 
     /**

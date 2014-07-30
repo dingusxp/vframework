@@ -19,8 +19,8 @@ return array(
      * 日志记录
      */
     'logger' => array(
-        // 0: none; 1: error; 2: warning; 4: debug; 8: info
-        'log_level' => 15,
+        // 0: none; 1: error; 2: warning; 4: notice; 8: debug; 16: info; 32: other
+        'log_level' => 63,
         'engine' => 'file',
         'option' => array(
             'path' => APP_PATH . '/log',
@@ -29,8 +29,10 @@ return array(
             'log_filename' => array(
                 1 => 'error',
                 2 => 'warning',
-                4 => 'debug',
-                8 => 'info',
+                4 => 'notice',
+                8 => 'debug',
+                16 => 'info',
+                32 => 'other',
             ),
         ),
     ),

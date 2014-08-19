@@ -300,7 +300,12 @@ abstract public function getUrl($path);  // 获取文件对应的可访问 url
 > #### Validator
 > 变量验证，通常用于用户输入。
 > 内置一些常见规则，如 url，email 等。可以通过配置自己添加其它规则
+**Validator接口**
 
+```php
+public static function setRule($ruleId, Validator_Rule_Abstract $validatorRule); // 设置一条验证规则
+public static function validate(); // 验证。参数：ruleName, $varToBeValidated, $otherParamForValidate, ...
 
+```
 
 

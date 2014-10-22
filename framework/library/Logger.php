@@ -5,23 +5,29 @@
  */
 class Logger extends Component {
     
-    // 日志级别： 错误
-    const LEVEL_ERROR = 1;
+    // 日志级别： 调试
+    const LEVEL_DEBUG = 1;
     
-    // 日志级别： 警告
-    const LEVEL_WARNING = 2;
+    // 日志级别： 信息
+    const LEVEL_INFO = 2;
     
     // 日志级别： 注意
     const LEVEL_NOTICE = 4;
     
-    // 日志级别： 调试
-    const LEVEL_DEBUG = 8;
+    // 日志级别： 警告
+    const LEVEL_WARNING = 8;
     
-    // 日志级别： 信息
-    const LEVEL_INFO = 16;
+    // 日志级别： 错误
+    const LEVEL_ERROR = 16;
     
-    // 日志级别： 其它（保留）
-    const LEVEL_OTHER = 32;
+    // 日志级别： 批评
+    const LEVEL_CRITICAL = 32;
+    
+    // 日志级别： 警告
+    const LEVEL_ALERT = 64;
+    
+    // 日志级别：紧急
+    const LEVEL_EMERGENCY = 128;
     
     // 日志参数
     private static $_logParam = array();
@@ -34,12 +40,14 @@ class Logger extends Component {
      * @var type 
      */
     private static $_levelNames = array(
-        self::LEVEL_ERROR => 'ERROR',
-        self::LEVEL_WARNING => 'WARNING',
-        self::LEVEL_NOTICE => 'NOTICE',
-        self::LEVEL_DEBUG => 'DEBUG',
-        self::LEVEL_INFO => 'INFO',
-        self::LEVEL_OTHER => 'OTHER',
+        self::LEVEL_DEBUG => 'debug',
+        self::LEVEL_INFO => 'info',
+        self::LEVEL_NOTICE => 'notice',
+        self::LEVEL_WARNING => 'warning',
+        self::LEVEL_ERROR => 'error',
+        self::LEVEL_CRITICAL => 'critical',
+        self::LEVEL_ALERT => 'alert',
+        self::LEVEL_EMERGENCY => 'emergency',
     );
 
     /**

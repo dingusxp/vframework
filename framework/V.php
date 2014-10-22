@@ -24,87 +24,8 @@ defined('V_DEBUG') or define('V_DEBUG', false);
 // V_START 开始时间
 define('V_START', microtime(true));
 
-/**
- * V_Exception
- */
-class V_Exception extends Exception {
-
-    /**
-     * 异常类型
-     */
-    protected $_type = null;
-
-    /**
-     * 继承层级
-     * @var type
-     */
-    protected $_level = 0;
-
-    /**
-     * 由下级未做处理直接传递过来的异常
-     */
-    const E_PASSON_EXCEPTION = 987654321;
-
-    /**
-     * 通用异常码： 参数错误
-     */
-    const E_PARAM_ERROR = 2;
-
-    /**
-     * 通用异常码： 逻辑错误
-     */
-    const E_LOGIC_ERROR = 1;
-
-    /**
-     * 异常： 引导器不能运行；
-     */
-    const E_BOOTSTRAP_CANNOT_RUN = 11;
-
-    /**
-     * 异常： 引导器已经在运行；
-     */
-    const E_BOOTSTRAP_INIT_ERROR = 12;
-
-    /**
-     * 构造函数
-     * @param <type> $message
-     * @param <type> $code
-     */
-    public function __construct($message, $code = 0) {
-
-        if ($message instanceof Exception) {
-            parent::__construct($message->getMessage(), self::E_PASSON_EXCEPTION);
-        } else {
-            parent::__construct($message, intval($code));
-        }
-        $this->_level++;
-    }
-
-    /**
-     * 获取异常类型：即 类名前缀小写
-     * 如 DAO_Exception ，返回 dao
-     *
-     * @return string
-     */
-    public function getType() {
-
-        if (null === $this->_type) {
-            $this->_type = str_replace('_exception', '', strtolower(get_class($this)));
-        }
-
-        return $this->_type;
-    }
-
-    /**
-     * 获取异常继承的层级
-     *
-     * @return int
-     */
-    public function getLevel() {
-
-        return $this->_level;
-    }
-}
+// 初始化
+V::init();
 
 /**
  * V
@@ -131,7 +52,6 @@ class V {
      * @var boolean 是否已经初始化过了
      */
     private static $_inited = false;
-    private static $_compileMode = false;
 
     /**
      * $_timestamp
@@ -198,13 +118,11 @@ class V {
         self::$_inited = true;
 
         // 加载框架默认配置
-        if (!self::$_compileMode) {
-            $data = include(V_PATH . '/config/global.php');
-            self::_loadConfig($data, 'v.');
-        }
+        $data = include(V_PATH . '/config/global.php');
+        self::_loadConfig($data, 'v.');
 
         // 加载应用全局配置
-        if (!self::$_compileMode && is_file(CONFIG_PATH . '/global.php')) {
+        if (is_file(CONFIG_PATH . '/global.php')) {
             $data = include(CONFIG_PATH . '/global.php');
             self::_loadConfig($data);
         }
@@ -228,7 +146,7 @@ class V {
         // 加载语言包
         $locale = self::config('language.locale');
         self::setLocale($locale);
-        if (!self::$_compileMode && is_file(V_PATH . '/language/' . $locale . '/framework.php')) {
+        if (is_file(V_PATH . '/language/' . $locale . '/framework.php')) {
             self::$_lang['framework'] = include(V_PATH . '/language/' . $locale . '/framework.php');
         }
 
@@ -266,18 +184,8 @@ class V {
             }
         }
 
+        // timer
         Timer::getInstance()->log('framework inited ...');
-    }
-
-    /**
-     * 使用编译好的配置初始化
-     * @param type $config
-     */
-    public static function compileInit($config) {
-
-        self::$_config = $config;
-        self::$_compileMode = true;
-        self::init();
     }
 
     /**
@@ -356,6 +264,7 @@ class V {
 		  'Storage_Sae' => 'Storage/Sae',
 		  'Str' => 'Str',
 		  'Timer' => 'Timer',
+		  'V_Exception' => 'V/Exception',
 		  'Validator' => 'Validator',
 		  'Validator_Exception' => 'Validator/Exception',
 		  'Validator_Rule' => 'Validator/Rule',
@@ -418,7 +327,7 @@ class V {
 
         // 加载配置
         $file = V_PATH . '/config/' . strtolower($loader) . '.php';
-        if (!self::$_compileMode && is_file($file)) {
+        if (is_file($file)) {
             $config = include($file);
             self::_loadConfig($config, 'v.' . strtolower($loader) . '.');
         }
@@ -521,7 +430,7 @@ class V {
     /**
      * setLocale
      * 设置地区，方便加载不同语言包
-     * @param string $local
+     * @param string $locale
      */
     public static function setLocale($locale) {
 
@@ -616,8 +525,8 @@ class V {
 
     /**
      * Log 记日志
-     * @param <type> $type
      * @param <type> $message
+     * @param <type> $type
      * @return <type>
      */
     public static function log($message, $type = Logger::LEVEL_INFO) {
@@ -655,6 +564,3 @@ class V {
         call_user_func_array(array('Debugger', 'output'), $params);
     }
 }
-
-// 初始化
-V::init();

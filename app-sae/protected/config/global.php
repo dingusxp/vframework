@@ -19,7 +19,8 @@ return array(
      * 日志记录
      */
     'logger' => array(
-        // 0: none; 1: error; 2: warning; 4: notice; 8: debug; 16: info; 32: other
+        // 0: none, 1: debug, 2: info, 4: notice, 8: warning, 16: error, 
+        // 32: critical, 64: alert, 128: emergency
         'log_level' => 0,
         'engine' => 'file',
         'option' => array(
@@ -27,12 +28,14 @@ return array(
             'date_format' => 'Ymd',
             // 各级别日志记录到的文件名；可以不同级别写到同一个文件
             'log_filename' => array(
-                1 => 'error',
-                2 => 'warning',
+                1 => 'debug',
+                2 => 'info',
                 4 => 'notice',
-                8 => 'debug',
-                16 => 'info',
-                32 => 'other',
+                8 => 'warning',
+                16 => 'error',
+                32 => 'critical',
+                64 => 'alert',
+                128 => 'emergency',
             ),
         ),
     ),

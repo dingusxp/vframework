@@ -4,7 +4,7 @@
  */
 
 class Controller_Index extends Controller_Base {
-    
+
     /**
      * action index
      * 首页

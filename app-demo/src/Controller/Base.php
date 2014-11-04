@@ -77,18 +77,18 @@ class Controller_Base extends Controller_Abstract {
      * @var type
      */
     protected $_captchaName = 'captcha';
-    
+
     /**
      * 当前用户
-     * @var type 
+     * @var type
      */
     protected $_user = array();
-    
+
     /**
      * before action
      */
     protected function _beforeAction() {
-        
+
         if (false == parent::_beforeAction()) {
             return false;
         }
@@ -129,6 +129,27 @@ class Controller_Base extends Controller_Abstract {
         $res = (strtolower($captcha) == strtolower($code)) ? true : false;
         $this->_response->clearCookie($this->_captchaName);
         return $res;
+    }
+
+    /**
+     * 获取 auth 信息加密解密对象
+     */
+    protected function _getAuthCryptor() {
+        static $_cryptor = null;
+
+        // 初始化加密器
+        if (null === $_cryptor) {
+            $config = V::config('cryptor');
+            if (!$config) {
+                $config = array(
+                    'engine' => 'Xor',
+                    'option' => array('keys' => array('vframework', 'auth'))
+                );
+            }
+            $_cryptor = Cryptor::factory($config);
+        }
+
+        return $_cryptor;
     }
 
     /**
@@ -179,7 +200,7 @@ class Controller_Base extends Controller_Abstract {
         $this->_view->assign('redirectTime', $redirectTime > 0 ? intval($redirectTime) : 0);
         return $this->_renderLayout($this->_msgTplMessage, array(), $this->_msgTplLayout);
     }
-    
+
     /**
      * 渲染到模板框架
      * @param type $tpl
@@ -223,7 +244,7 @@ class Controller_Base extends Controller_Abstract {
                 $content = str_replace($value, '', $content);
             }
         }
-        
+
         // 去除多余的 script 和 style 标签
         $content = preg_replace('/\<\/script>\s*\<script/', '', $content);
         $content = preg_replace('/\<\/style\>\s*\<style/', '', $content);

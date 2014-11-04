@@ -59,6 +59,14 @@ return array(
     'imports' => array(),
 
     /**
+     * 预加载类
+     */
+    'image' => array(
+        'engine' => 'GD',
+        'option' => array(),
+    ),
+
+    /**
      * 类 自动加载 回调
      */
     'autoloads' => array(),

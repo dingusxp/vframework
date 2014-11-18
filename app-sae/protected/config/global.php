@@ -62,6 +62,13 @@ return array(
      * 类 自动加载 回调
      */
     'autoloads' => array(),
+    
+    /**
+     * 预置钩子
+     * 格式：
+     * + array(handlerName, callback),
+     */
+    'hooks' => array(),
 
     /**
      * 时区
@@ -79,7 +86,7 @@ return array(
     'cryptor' => array(
         'engine' => 'Xor',
         'option' => array(
-            'keys' => array('zhizi', 'cryptor', 'common'),
+            'keys' => array('vframework', 'cryptor', 'app-sae'),
         ),
     ),
 
@@ -107,5 +114,5 @@ return array(
         'engine' => 'saeMysql',
         'option' => array(
         ),
-    ),    
+    ),
 );

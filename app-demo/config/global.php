@@ -59,17 +59,16 @@ return array(
     'imports' => array(),
 
     /**
-     * 预加载类
-     */
-    'image' => array(
-        'engine' => 'GD',
-        'option' => array(),
-    ),
-
-    /**
      * 类 自动加载 回调
      */
     'autoloads' => array(),
+    
+    /**
+     * 预置钩子
+     * 格式：
+     * + array(handlerName, callback),
+     */
+    'hooks' => array(),
 
     /**
      * 时区
@@ -80,4 +79,23 @@ return array(
      * 路由配置位置
      */
     'router_key' => 'web.router',
+    
+    /**
+     * 图片处理
+     */
+    'image' => array(
+        'engine' => 'GD',
+        'option' => array(
+                    ),
+    ),
+    
+    /**
+     * 加密解密
+     */
+    'cryptor' => array(
+        'engine' => 'Xor',
+        'option' => array(
+            'keys' => array('vframework', 'cryptor'),
+        ),
+    ),
 );

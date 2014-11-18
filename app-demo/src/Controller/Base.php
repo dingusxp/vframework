@@ -101,59 +101,6 @@ class Controller_Base extends Controller_Abstract {
     }
 
     /**
-     * 输出验证码
-     */
-    protected function _renderCaptcha($length = self::CAPTCHA_DEFAULT_LENGTH, $width = self::CAPTCHA_DEFAULT_WIDTH, $height = self::CAPTCHA_DEFAULT_HEIGHT) {
-
-        try{
-            $code = Image::generateCaptchaCode($length);
-			$img = Image::factory(V::config('image'));
-            $img->createCaptcha($code, $width, $height);
-            $captchaCode = $this->_getAuthCryptor()->encrypt($code);
-            $this->_response->setCookie($this->_captchaName, $captchaCode);
-            return $img->output();
-		} catch (Exception $e) {
-            V::log($e, Logger::LEVEL_ERROR);
-			return false;
-		}
-    }
-
-    /**
-     * 校验验证码
-     * @param type $captcha
-     * @return type
-     */
-    protected function _checkCaptcha($captcha) {
-
-        $captchaCode = $this->_request->cookie($this->_captchaName);
-        $code = $this->_getAuthCryptor()->decrypt($captchaCode);
-        $res = (strtolower($captcha) == strtolower($code)) ? true : false;
-        $this->_response->clearCookie($this->_captchaName);
-        return $res;
-    }
-
-    /**
-     * 获取 auth 信息加密解密对象
-     */
-    protected function _getAuthCryptor() {
-        static $_cryptor = null;
-
-        // 初始化加密器
-        if (null === $_cryptor) {
-            $config = V::config('cryptor');
-            if (!$config) {
-                $config = array(
-                    'engine' => 'Xor',
-                    'option' => array('keys' => array('vframework', 'auth'))
-                );
-            }
-            $_cryptor = Cryptor::factory($config);
-        }
-
-        return $_cryptor;
-    }
-
-    /**
      * 信息提示页
      * @param <type> $message
      * @param <type> $msgType
@@ -285,44 +232,5 @@ class Controller_Base extends Controller_Abstract {
         // 不缓存
         $this->_response->setNoCache();
         return $this->_response->setBody($return);
-    }
-
-    /**
-     * 检查跳转链接是否是同域名的
-     */
-    protected function _checkJumpUrl($jumpUrl) {
-
-        $jumpUrl = trim($jumpUrl);
-        if ($jumpUrl[0] == '/') {
-            return true;
-        }
-
-        $jumpUrlInfo = parse_url($jumpUrl);
-        $loginUrlInfo = parse_url($this->_request->url());
-        return $jumpUrlInfo['host'] === $loginUrlInfo['host'] ? true : false;
-    }
-
-    /**
-     * 获取一个 token
-     * 通常在需要操作的表单/链接里传给客户端
-     */
-    protected function _getCsrfToken($id = null) {
-
-        $saltName = V::config('security.csrf_salt', 'v_salt');
-        $token = V::config('security.csrf_token', 'v_token');
-		$hash = $this->_request->cookie($saltName);
-		if (!$hash) {
-			$hash = mt_rand(10000000, 99999999);
-			$this->_response->setCookie($saltName, $hash, 86400 * 14);
-		}
-		return substr(md5($id.$hash.$token), 8, 8);
-    }
-
-    /**
-     * 验证客户端提交的 token 是否合法
-     */
-    protected function _checkCsrfToken($token, $id = null) {
-
-		return $token == $this->_getCsrfToken($id);
     }
 }

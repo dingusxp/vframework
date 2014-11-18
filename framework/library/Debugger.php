@@ -8,7 +8,7 @@ class Debugger {
     /**
      * 格式化输出的字符串最大长度
      */
-    const FORMAT_STRING_MAX_LENGTH = 240;
+    const FORMAT_STRING_MAX_LENGTH = 255;
 
     /**
      * 输出变量模式：var_export 函数打印

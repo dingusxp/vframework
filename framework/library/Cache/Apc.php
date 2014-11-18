@@ -52,7 +52,7 @@ class Cache_Apc extends Cache_Abstract {
     /**
      * 移除缓存数据
      *
-     * @param  string  $name
+     * @param  string  $id
      * @return boolean
      */
     public function remove($id) {

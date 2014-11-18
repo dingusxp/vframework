@@ -53,7 +53,7 @@ class Validator {
                     }
                 }
             } catch (Exception $e) {
-                throw new Validator_Exception('Init validator failed', Validator_Exception::E_VALIDATOR_RULE_INIT_ERROR);
+                throw new Validator_Exception('Init validator failed: '.$e->getMessage(), Validator_Exception::E_VALIDATOR_RULE_INIT_ERROR);
             }
         }
 
@@ -64,7 +64,7 @@ class Validator {
     /**
      * 设置验证规则
      * @param <type> $ruleId
-     * @param <type> $validator
+     * @param Validator_Rule_Abstract $validatorRule
      */
     public static function setRule($ruleId, Validator_Rule_Abstract $validatorRule) {
 
@@ -102,7 +102,7 @@ class Validator {
             array_shift($param);
             return call_user_func_array(array(self::$_rules[$ruleId], 'check'), $param);
         } catch (Exception $e) {
-            throw new Validator_Exception('validate error', Validator_Exception::E_VALIDATOR_ERROR);
+            throw new Validator_Exception('validate error: '.$e->getMessage(), Validator_Exception::E_VALIDATOR_ERROR);
         }
     }
 

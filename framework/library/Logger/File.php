@@ -49,7 +49,7 @@ class Logger_File extends Logger_Abstract {
      * @param <type> $logId
      * @param <type> $type
      * @param <type> $message
-     * @param <type> $datetime
+     * @param <type> $logParam
      * @return <type>
      */
     protected function _save($logId, $type, $message, $logParam = array()) {

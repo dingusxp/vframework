@@ -55,7 +55,7 @@ class Model extends Component {
     /**
      * 获取 DAO 实例
      * 统一保存，避免反复实例化
-     * @param <type> $name
+     * @param <type> $engine
      */
     public static function getDAO($engine) {
 

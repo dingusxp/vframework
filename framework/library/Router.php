@@ -32,7 +32,7 @@ class Router extends Component {
                 return self::_operationRedirect($action['param']);
             }
         } catch (Exception $e) {
-            return self::renderError500();
+            return self::renderError500($e);
         }
 
         return self::renderError404();
@@ -80,9 +80,9 @@ class Router extends Component {
             if ($e->getCode() == Component_Exception::E_COMPONENT_NOT_EXIST) {
                 return self::renderError404();
             }
-            return self::renderError500();
+            return self::renderError500($e);
         } catch (Exception $e) {
-            return self::renderError500();
+            return self::renderError500($e);
         }
 
         // 执行方法
@@ -100,6 +100,10 @@ class Router extends Component {
      */
     public static function renderError404() {
 
+        // log error
+        $errMsg = '404 url:'.Web_Request::getInstance()->url();
+        V::log($errMsg, Logger::LEVEL_NOTICE);
+
         Web_Response::getInstance()->setResponseCode(404);
 		$configKey = V::config('router_key');
 		$config = V::config($configKey, array());
@@ -108,9 +112,12 @@ class Router extends Component {
 
     /**
      * 内部错误输出
-     * @param <type> $url
+     * @param <type> $errMsg
      */
-    public static function renderError500() {
+    public static function renderError500($errMsg) {
+
+        // log error
+        V::log($errMsg, Logger::LEVEL_ERROR);
 
         Web_Response::getInstance()->setResponseCode(500);
 		$configKey = V::config('router_key');

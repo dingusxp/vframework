@@ -1,18 +1,4 @@
 <?php
-/**
- * File System 操作
- */
-
-/**
- * File System 异常
- */
-class FS_Exception extends V_Exception {
-    
-    /**
-     * IO 操作出错
-     */
-    const E_FS_IO_ERROR = 101;
-}
 
 /**
  * File System 操作类
@@ -71,7 +57,7 @@ class FS {
 
     /**
      * 删除目录（及里面所有文件！）
-     * @param string $path 要删除的目录
+     * @param string $dir 要删除的目录
      */
     public static function rmdir($dir) {
 
@@ -81,7 +67,7 @@ class FS {
 
     /**
      * 清空目录下所有文件和文件夹（保留目录本身）
-     * @param <type> $path
+     * @param <type> $dir
      */
     public static function cleandir($dir) {
 
@@ -233,7 +219,7 @@ class FS {
 
     /**
      * 检查是否目录
-     * @param <type> $file
+     * @param <type> $dir
      * @return <type>
      */
     public static function isDir($dir) {

@@ -10,5 +10,4 @@ class View_Exception extends Component_Exception {
      */
     const COMPILE_FILE_NOT_FOUND = 301;
 
-
 }

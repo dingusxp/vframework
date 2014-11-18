@@ -210,7 +210,7 @@ class Image extends Component {
 
     /**
      * 生成验证码
-     * @param <type> $num
+     * @param <type> $length
      */
     public static function generateCaptchaCode($length = 4) {
 

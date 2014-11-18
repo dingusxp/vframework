@@ -6,13 +6,6 @@
 class Bootstrap_Web extends Bootstrap_Abstract {
 
     /**
-     * 构造函数
-     */
-    public function  __construct() {
-
-    }
-
-    /**
      * run
      * Router 解析 & render
      */
@@ -24,7 +17,7 @@ class Bootstrap_Web extends Bootstrap_Abstract {
             $router = Router::factory(V::config($configKey, array()));
             $action = $router->parse();
         } catch (Router_Exception $e) {
-            return Router::renderError500();
+            return Router::renderError500($e);
         }
         if (!$action) {
             return Router::renderError404();

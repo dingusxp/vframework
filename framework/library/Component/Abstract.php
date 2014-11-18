@@ -1,6 +1,8 @@
 <?php
 
-
+/**
+ * 组件，基类
+ */
 abstract class Component_Abstract {
     
     /**

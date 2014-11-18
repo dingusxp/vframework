@@ -90,15 +90,13 @@ class Web_Request {
             $filter['cookie'] = '\\b(and|or)\\b.{1,6}?(=|>|<|\\bin\\b|\\blike\\b)|\\/\\*.+?\\*\\/|<\\s*script\\b|\\bEXEC\\b|UNION.+?Select|Update.+?SET|Insert\\s+INTO.+?VALUES|(Select|Delete).+?FROM|(Create|Alter|Drop|TRUNCATE)\\s+(TABLE|DATABASE)' ;
             foreach ($checks as $k => $value) {
                 foreach ($value as $field => $item) {
-                    if ($this->_checkInjection($item, $filter[$k])) {
-                        if (!empty($config['on_injection_detect'])) {
-                            $param = array(
-                                'type' => $k,
-                                'field' => $field,
-                                'value' => $item,
-                            );
-                            call_user_func($config['on_injection_detect'], $param);
-                        }
+                    if ($this->_checkInjection($item, $filter[$k]) && !empty($config['on_injection_detect'])) {
+                        $param = array(
+                            'type' => $k,
+                            'field' => $field,
+                            'value' => $item,
+                        );
+                        call_user_func($config['on_injection_detect'], $param);
                     }
                 }
             }

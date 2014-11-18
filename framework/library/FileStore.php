@@ -47,7 +47,7 @@ class FileStore {
     
     /**
      * 根据配置获取获取实例
-     * @param type $option
+     * @param type $configKey
      */
     public static function getInstance($configKey) {
         

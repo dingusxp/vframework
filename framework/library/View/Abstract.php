@@ -61,7 +61,7 @@ abstract class View_Abstract {
     /**
      * 视图渲染
      * @param <type> $tpl
-     * @param <type> $return
+     * @param <type> $target
      * @return <type>
      */
     public function render($tpl, $target = View::RENDER_WEB_RESPONSE) {

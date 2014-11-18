@@ -496,7 +496,9 @@ class V {
         }
 
         // special
-        if ($key == '*') return self::$_config;
+        if ($key == '*') {
+            return self::$_config;
+        }
 
         return $default;
     }

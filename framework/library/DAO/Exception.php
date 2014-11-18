@@ -3,7 +3,7 @@
 /**
  * DAO 异常
  */
-class DAO_Exception extends V_Exception {
+class DAO_Exception extends Component_Exception {
 
     
 }

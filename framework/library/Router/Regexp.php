@@ -23,12 +23,12 @@ class Router_Regexp extends Router_Abstract {
         if (isset($this->_option['search_pattern'])) {
             $searchPattern = $this->_option['search_pattern'];
         }
-        $path = $_SERVER['REQUEST_URI'];
+        $path = filter_input(INPUT_SERVER, 'REQUEST_URI', FILTER_SANITIZE_STRING);// $_SERVER['REQUEST_URI'];
         $maxReplace = 9;
         foreach ($rules as $rule) {
 
             // 如果匹配到
-            if (preg_match($rule['pattern'], $path, $match)) {
+            if (preg_match($rule['pattern'], $path, $match = array())) {
                 $action = array('operation' => $rule['operation']);
                 $search = $replace = array();
                 for ($i = 0; $i <= $maxReplace; $i++) {

@@ -16,8 +16,10 @@ class Cryptor_Xor extends Cryptor_Abstract {
      * 构造函数，可设置 keys
      * @param <type> $option
      */
-    public function  __construct($option = array()) {
+    public function  __construct(array $option = array()) {
         
+        parent::__construct();
+
         if (isset($option['keys'])) {
             foreach ((array)$option['keys'] as $skey) {
                 $this->_addKey($skey);

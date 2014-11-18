@@ -15,7 +15,7 @@ class Cache_Memcache extends Cache_Abstract {
     /**
      * 构造函数
      *
-     * @param  array  $options
+     * @param  array  $option
      * @throws Exception
      */
     public function __construct($option = array()) {
@@ -86,7 +86,7 @@ class Cache_Memcache extends Cache_Abstract {
     /**
      * 移除缓存数据
      *
-     * @param  string  $name
+     * @param  string  $id
      * @return boolean
      */
     public function remove($id) {

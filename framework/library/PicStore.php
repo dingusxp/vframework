@@ -56,7 +56,7 @@ class PicStore {
     
     /**
      * 根据配置获取获取实例
-     * @param type $option
+     * @param type $configKey
      */
     public static function getInstance($configKey) {
         
@@ -119,7 +119,7 @@ class PicStore {
         try {
             return Image::factory($this->_image);
         } catch (Exception $e) {
-            throw new PicStore_Exception('Init image engine failed: ', PicStore_Exception::E_PICSTORE_LOAD_COMPONENT_FAILED);
+            throw new PicStore_Exception('Init image engine failed: '.$e->getMessage(), PicStore_Exception::E_PICSTORE_LOAD_COMPONENT_FAILED);
         }
     }
 

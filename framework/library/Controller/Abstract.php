@@ -93,28 +93,4 @@ abstract class Controller_Abstract {
     protected function _afterAction() {
 
     }
-
-    /**
-     * 获取一个 token
-     * 通常在需要操作的表单/链接里传给客户端
-     */
-    protected function _getCsrfToken($id = null) {
-
-        $saltName = V::config('security.csrf_salt', 'v_salt');
-        $token = V::config('security.csrf_token', 'v_token');
-		$hash = $this->_request->cookie($saltName);
-		if (!$hash) {
-			$hash = mt_rand(10000000, 99999999);
-			$this->_response->setCookie($saltName, $hash, 86400 * 14);
-		}
-		return substr(md5($id.$hash.$token), 8, 8);
-    }
-
-    /**
-     * 验证客户端提交的 token 是否合法
-     */
-    protected function _checkCsrfToken($token, $id = null) {
-
-		return $token == $this->_getCsrfToken($id);
-    }
 }

@@ -3,7 +3,7 @@
 /**
  * 缓存异常
  */
-class Cache_Exception extends V_Exception {
+class Cache_Exception extends Component_Exception {
 
     /**
      * 环境不支持该类型的缓存

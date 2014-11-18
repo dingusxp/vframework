@@ -43,13 +43,17 @@ class Str {
      */
     public static function jsonEncode($object) {
 
+        if (version_compare ( PHP_VERSION ,  '5.4.0' ) >=  0) {
+            return json_encode($object, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
+        }
+
         require_once dirname(__FILE__) . '/Str/functions.php';
         return str_json_encode($object);
     }
 
     /**
      * 字符串哈希为整数
-     * @param <type> $string
+     * @param <type> $s
      * @param <type> $mod 
      */
     public static function hash($s, $mod = 0) {

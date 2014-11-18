@@ -117,6 +117,6 @@ class Logger extends Component {
         
         return array_key_exists($level, self::$_levelNames)
                 ? self::$_levelNames[$level]
-                : 'UNKNOWN';
+                : 'unknown';
     }
 }

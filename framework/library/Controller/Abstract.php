@@ -7,37 +7,37 @@ abstract class Controller_Abstract {
 
     /**
      * 模板引擎
-     * @var <type>
+     * @var View_Abstract
      */
     protected $_view;
 
     /**
      * request 实例
-     * @var <type>
+     * @var Web_Request
      */
     protected $_request;
 
     /**
      * response 实例
-     * @var <type>
+     * @var Web_Response
      */
     protected $_response;
 
     /**
      * session 实例
-     * @var <type>
+     * @var Web_Session
      */
     protected $_session;
 
     /**
      * 实例类的名称
-     * @var <type>
+     * @var string
      */
     protected $_controllerName;
 
     /**
      * 执行的 action
-     * @var <type>
+     * @var string
      */
     public $_actionName;
     

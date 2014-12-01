@@ -146,61 +146,7 @@ class Controller_Base extends Controller_Abstract {
         $this->_view->assign('urlForwards', $urlForwards);
         $this->_view->assign('redirectUrl', $redirectUrl);
         $this->_view->assign('redirectTime', $redirectTime > 0 ? intval($redirectTime) : 0);
-        return $this->_renderLayout($this->_msgTplMessage, array(), $this->_msgTplLayout);
-    }
-
-    /**
-     * 渲染到模板框架
-     * @param type $tpl
-     * @param type $tplVars
-     */
-    protected function _renderLayout($tpl, $data = array(), $layoutTpl = 'layout') {
-
-        // 参数指定变量
-        if ($data) {
-            foreach ($data as $key => $value) {
-                $this->_view->assign($key, $value);
-            }
-        }
-
-        $content = $this->_view->render($tpl, View::RENDER_NONE);
-
-        // 抽取代码中的样式和js内容
-        $extraScript = $extraStyle = '';
-        $matches = array();
-        if (preg_match_all('/\<link rel\=\"stylesheet\".*?\/\>\s*/i', $content, $matches)) {
-            foreach ($matches[0] as $value) {
-                $extraStyle .= $value;
-                $content = str_replace($value, '', $content);
-            }
-        }
-        if (preg_match_all('/\<style type\=\"text\/css\".*?\<\/style\>\s*/ims', $content, $matches)) {
-            foreach ($matches[0] as $value) {
-                $extraStyle .= $value;
-                $content = str_replace($value, '', $content);
-            }
-        }
-        if (preg_match_all('/\<script type\=\"text\/javascript\" src\=\".*?\<\/script\>\s*/i', $content, $matches)) {
-            foreach ($matches[0] as $value) {
-                $extraScript .= $value;
-                $content = str_replace($value, '', $content);
-            }
-        }
-        if (preg_match_all('/\<script type\=\"text\/javascript"\>.*?\<\/script>\s*/ims', $content, $matches)) {
-            foreach ($matches[0] as $value) {
-                $extraScript .= $value;
-                $content = str_replace($value, '', $content);
-            }
-        }
-
-        // 去除多余的 script 和 style 标签
-        $content = preg_replace('/\<\/script>\s*\<script/', '', $content);
-        $content = preg_replace('/\<\/style\>\s*\<style/', '', $content);
-
-        $this->_view->assign('mainContent', $content);
-        $this->_view->assign('extraStyle', $extraStyle);
-        $this->_view->assign('extraScript', $extraScript);
-        return $this->_view->render($layoutTpl);
+        return $this->_view->renderLayout($this->_msgTplMessage, $this->_msgTplLayout, array(), View::LAYOUT_REBUILD_RESOURCE);
     }
 
     /**

@@ -17,6 +17,6 @@ class Controller_Index extends Controller_Base {
         $tplData = array(
             'title' => 'vframework app-demo - index',
         );
-        return $this->_renderLayout('index/index', $tplData);
+        return $this->_view->renderLayout('index/index', 'layout', $tplData, View::LAYOUT_REBUILD_RESOURCE);
     }
 }

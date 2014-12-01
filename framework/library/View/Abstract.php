@@ -116,31 +116,43 @@ abstract class View_Abstract {
                 $matches = array();
                 if (preg_match_all('/\<link rel\=\"stylesheet\".*?\/\>\s*/i', $content, $matches)) {
                     foreach ($matches[0] as $value) {
+                        if (Str::has($value, 'no-rebuild')) {
+                            continue;
+                        }
                         $extraStyle .= $value;
                         $content = str_replace($value, '', $content);
                     }
                 }
                 if (preg_match_all('/\<style type\=\"text\/css\".*?\<\/style\>\s*/ims', $content, $matches)) {
                     foreach ($matches[0] as $value) {
+                        if (Str::has($value, 'no-rebuild')) {
+                            continue;
+                        }
                         $extraStyle .= $value;
                         $content = str_replace($value, '', $content);
                     }
                 }
                 if (preg_match_all('/\<script type\=\"text\/javascript\" src\=\".*?\<\/script\>\s*/i', $content, $matches)) {
                     foreach ($matches[0] as $value) {
+                        if (Str::has($value, 'no-rebuild')) {
+                            continue;
+                        }
                         $extraScript .= $value;
                         $content = str_replace($value, '', $content);
                     }
                 }
                 if (preg_match_all('/\<script type\=\"text\/javascript"\>.*?\<\/script>\s*/ims', $content, $matches)) {
                     foreach ($matches[0] as $value) {
+                        if (Str::has($value, 'no-rebuild')) {
+                            continue;
+                        }
                         $extraScript .= $value;
                         $content = str_replace($value, '', $content);
                     }
                 }
 
-                // TO-DO 合并去除多余的 script 和 style 标签
-                
+                // TO-DO 合并去除多余（相邻）的 script 和 style 标签
+
             }
             
             $this->assign($name, $content);

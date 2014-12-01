@@ -11,6 +11,6 @@ class Model_Hello extends Model_Abstract {
      */
     public static function getWords() {
 
-        return 'hell, world';
+        return 'hello, world';
     }
 }

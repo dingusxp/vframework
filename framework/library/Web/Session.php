@@ -26,7 +26,7 @@ class Web_Session {
 
     /**
      * 获取实例
-     * @return <type>
+     * @return Web_Session
      */
     public static function getInstance() {
 

@@ -49,7 +49,7 @@ class Web_Cookie {
 
     /**
      * 获取实例
-     * @return <type>
+     * @return Web_Cookie
      */
     public static function getInstance() {
 

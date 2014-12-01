@@ -67,7 +67,7 @@ class Image extends Component {
      * 工厂
      * @param <type> $engine
      * @param <type> $option
-     * @return <type>
+     * @return Image_Abstract
      */
     public static function factory($engine, $option = array()) {
 

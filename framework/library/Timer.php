@@ -19,7 +19,7 @@ class Timer {
     
     /**
      * 获取一个指定时间的 timer 计时器
-     * @param type $name
+     * @param Timer $name
      */
     public static function getInstance($name = 'system') {
         

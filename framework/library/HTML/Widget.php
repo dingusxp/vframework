@@ -7,7 +7,7 @@ class HTML_Widget extends Component {
 
     /**
      * 默认 view
-     * @var <type>
+     * @var View_Abstract
      */
     private static $_view = null;
 
@@ -15,7 +15,7 @@ class HTML_Widget extends Component {
      * 工厂
      * @param <type> $engine
      * @param <type> $option
-     * @return <type>
+     * @return HTML_Widget_Abstract
      */
     public static function factory($engine, $option = array()) {
 

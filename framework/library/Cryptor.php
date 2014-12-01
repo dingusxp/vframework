@@ -9,7 +9,7 @@ class Cryptor extends Component {
      * 工厂
      * @param <type> $engine
      * @param <type> $option
-     * @return <type>
+     * @return Cryptor_Abstract
      */
     public static function factory($engine, $option = array()) {
 

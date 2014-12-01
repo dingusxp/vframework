@@ -20,6 +20,7 @@ class Component {
      * @param <type> $componentName
      * @param <type> $engine
      * @param <type> $option
+     * @return Component_Abstract 
      */
     protected static function _factory($componentName, $engine, $option = array()) {
 

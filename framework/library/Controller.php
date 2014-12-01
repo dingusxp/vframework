@@ -9,7 +9,7 @@ class Controller extends Component {
      * 工厂
      * @param <type> $engine
      * @param <type> $option
-     * @return <type>
+     * @return Controller_Abstract
      */
     public static function factory($engine, $option = array()) {
 

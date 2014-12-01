@@ -55,7 +55,7 @@ class Web_Response {
 
     /**
      * 获取实例
-     * @return <type>
+     * @return Web_Response
      */
     public static function getInstance() {
 

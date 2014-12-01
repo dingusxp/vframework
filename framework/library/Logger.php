@@ -54,7 +54,7 @@ class Logger extends Component {
      * 工厂
      * @param <type> $engine
      * @param <type> $option
-     * @return <type>
+     * @return Logger_Abstract
      */
     public static function factory($engine, $option = array()) {
 

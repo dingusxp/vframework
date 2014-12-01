@@ -122,7 +122,7 @@ class Web_Request {
 
     /**
      * 获取实例
-     * @return <type>
+     * @return Web_Request
      */
     public static function getInstance() {
 

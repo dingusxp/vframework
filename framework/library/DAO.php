@@ -9,7 +9,7 @@ class DAO extends Component {
      * 工厂
      * @param <type> $engine
      * @param <type> $option
-     * @return <type>
+     * @return DAO_Abstract
      */
     public static function factory($engine, $option = array()) {
 

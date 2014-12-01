@@ -9,7 +9,7 @@ class Cache extends Component {
      * 工厂
      * @param <type> $engine
      * @param <type> $option
-     * @return <type>
+     * @return Cache_Abstract
      */
     public static function factory($engine, $option = array()) {
 

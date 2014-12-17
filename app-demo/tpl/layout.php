@@ -12,7 +12,7 @@
             <script src="http://css3-mediaqueries-js.googlecode.com/files/css3-mediaqueries.js"></script>
         <![endif]-->
 	</head>
-<body>    
+<body>
     <div class="wrapper">
         <div class="row">
             <h1 class="margintop">vframework app-demo</h1>

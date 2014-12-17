@@ -21,21 +21,16 @@ class Test_V {
      */
     public function testRuntime() {
 
-        usleep(mt_rand(1000, 10000));
         echo 'runtime:', V::runtime(), 'ms';
         return true;
     }
-    
+
     /**
-     * 测试 loader
+     * 测试语言包
      */
-    public function testLoader() {
-        
-        try {
-            V::loadBootstrap('runtime')->run();
-        } catch (Exception $e) {
-            echo PHP_EOL, 'Exception: ', $e->getMessage(), PHP_EOL;
-        }
+    public function testLang() {
+    
+        echo 'lang: ', V::t('this is a "{value}"', array('value' => 'test'));
         return true;
     }
 }

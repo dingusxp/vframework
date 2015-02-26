@@ -1,6 +1,6 @@
 <?php
 /**
- * runtime 相关默认配置
+ * cli 相关默认配置
  */
 
 return array(

@@ -86,4 +86,22 @@ class Str {
         $mod = intval($mod);
         return $mod > 0 ? $hash % $mod : $hash;
     }
+    
+    /**
+     * 转换字符串编码为 UTF8
+     * 注意：不一定靠谱，请 仅用于 链接或者终端输入参数
+     * @param type $str
+     */
+    public static function toUTF8($str) {
+        $encodings = array('ASCII', 'UTF8', 'GBK');
+        $check = mb_detect_encoding($str, $encodings, true);
+        if ($check == 'ASCII' || $check == 'UTF8') {
+            return $str;
+        }
+        if(!$check) {
+            // just a trick
+            $check = 'GBK';
+        }
+        return mb_convert_encoding($str, 'UTF8', $check);
+    }
 }

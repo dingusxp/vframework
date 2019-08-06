@@ -1,0 +1,9 @@
+.DS*
+*.DS_Store
+*.idea
+*.log
+*~
+*.swp
+*.swo
+.vscode
+*.tags
